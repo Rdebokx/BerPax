@@ -49,7 +49,6 @@ var buttonWrapper = Ti.UI.createView({
     top: 130,
     left: 30,
     right: 30,
-    layout: "vertical",
     bottom: 0
 });
 wrapper.add(buttonWrapper);
@@ -79,11 +78,12 @@ orderButton.addEventListener("click", function(e){
 
 //order section
 var orderSection = Ti.UI.createView({
-    height: 200,
+    height: 10,
     left: 0,
     right: 0,
-    top: 100,
+    top: 75,
     layout: "vertical",
+    backgroundColor: "#f00"
 });
 buttonWrapper.add(orderSection);
 
@@ -139,7 +139,7 @@ orderSection.add(recentLabel);
 var invoiceButton = Ti.UI.createView({
     left: 0,
     right: 0,
-    top: 200,
+    top: 100,
     height: 50,
     backgroundColor: "#f07f08",
     borderColor: "#b05b05",
@@ -163,7 +163,7 @@ var invoiceSection = Ti.UI.createView({
     height: 0,
     left: 0,
     right: 0,
-    height: 300
+    top: 300
 });
 buttonWrapper.add(invoiceSection);
 
@@ -203,7 +203,7 @@ var askButton = Ti.UI.createView({
     left: 0,
     right: 0,
     height: 50,
-    top: 300,
+    top: 200,
     backgroundColor: "#f07f08",
     borderColor: "#b05b05",
     borderWidth: 3,
@@ -259,48 +259,38 @@ var upValues = [orderButton.top, invoiceButton.top, askButton.top];
 var sectionHeights = [120, 90, 90];
 var sections = [orderSection, invoiceSection, askSection];
 var buttons = [orderButton, invoiceButton, askButton];
-var buttonClicked = function(i){
+var buttonClicked = function(index){
     var slideDown = !expanded[index];
     var slideDownCallback = function(){
+        Ti.API.info("--slideDown callback called");
         //make room by repositioning buttons
         for(var k = 0; k < 3; k++){
             if(k > index){
+                Ti.API.info("--moving button down");
                 buttons[k].animate(Ti.UI.createAnimation({
                     top: buttons[k].top + sectionHeights[index]
                 }));
             }
         }
         //expand section
+        Ti.API.info("--unfolding section " + sectionHeights[index] + " " + JSON.stringify(sections[index]));
         sections[index].animate(Ti.UI.createAnimation({
             height: sectionHeights[index]
         }));
     }
     //first, hide all sections and reposition buttons. If necessary use callback on last animation to slide down section.
+    Ti.API.info("--resetting elements");
     for(var i = 0; i < 3; i++){
+        Ti.API.info("-resetting element " + i);
         sections[i].animate(Ti.UI.createAnimation({
             height: 0
         }));
         buttons[i].animate(Ti.UI.createAnimation({
             top: upValues[i]
-        }), (slideDown && i == 2 ? slideDownCallback : null));
+        }, (slideDown && i == 2 ? slideDownCallback : null)));
     }
     expanded = [false, false, false];
     expanded[index] = true;
-    
-    
-    
-    if(expanded(index)){
-        //if expanded, slide up and reposition buttons
-        slideUpButton(index);
-    } else {
-        //if not, slide up others and (in callback) slide down this one
-        slideUpButton(index);
-    }
-    
-    //if not, slide up others and slide down this one
-}
-var slideUpButton = function(index){
-    
 }
 
 win.open();
