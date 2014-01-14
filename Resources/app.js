@@ -78,12 +78,12 @@ orderButton.addEventListener("click", function(e){
 
 //order section
 var orderSection = Ti.UI.createView({
-    height: 10,
+    height: 120,
     left: 0,
     right: 0,
     top: 75,
     layout: "vertical",
-    backgroundColor: "#f00"
+    opacity: 0
 });
 buttonWrapper.add(orderSection);
 
@@ -160,10 +160,12 @@ invoiceButton.addEventListener("click", function(e){
 
 //invoice section
 var invoiceSection = Ti.UI.createView({
-    height: 0,
+    height: 90,
     left: 0,
     right: 0,
-    top: 300
+    top: 175,
+    opacity: 0,
+    layout: "vertical"
 });
 buttonWrapper.add(invoiceSection);
 
@@ -171,6 +173,7 @@ var decemberLabel = Ti.UI.createLabel({
     text: "December (unpaid)",
     left: 0,
     color: "#000",
+    height: labelHeight,
     font: {
         fontSize: labelFontSize,
         fontWeight: "bold"
@@ -180,6 +183,7 @@ invoiceSection.add(decemberLabel);
 
 var novemberLabel = Ti.UI.createLabel({
     text: "November",
+    height: labelHeight,
     left: 0,
     color: "#000",
     font: {
@@ -190,6 +194,7 @@ invoiceSection.add(novemberLabel);
 
 var oktoberLabel = Ti.UI.createLabel({
     text: "Oktober",
+    height: labelHeight,
     left: 0,
     color: "#000",
     font: {
@@ -217,7 +222,6 @@ buttonWrapper.add(askButton);
 askButton.add(Ti.UI.createLabel({
     text: "Ask question",
     color: "#fff",
-    top: 400,
     font: {
         fontSize: 15
     }
@@ -226,25 +230,32 @@ askButton.add(Ti.UI.createLabel({
 
 //ask section
 var askSection = Ti.UI.createView({
-    height: 0,
+    height: 90,
     left: 0,
     right: 0,
-    layout: "vertical"
+    layout: "vertical",
+    opacity: 0,
+    top: 275
 });
 buttonWrapper.add(askSection);
 
 var myTaxiLabel = Ti.UI.createLabel({
     text: "Where is my taxi",
+    height: labelHeight,
     left: 0,
     color: "#000",
     font: {
         fontSize: labelFontSize,
     }
 });
+myTaxiLabel.addEventListener("click", function(e) {
+    //TODO
+});
 askSection.add(myTaxiLabel);
 
 var faqLabel = Ti.UI.createLabel({
     text: "FAQ",
+    height: labelHeight,
     left: 0,
     color: "#000",
     font: {
@@ -268,14 +279,17 @@ var buttonClicked = function(index){
             if(k > index){
                 Ti.API.info("--moving button down");
                 buttons[k].animate(Ti.UI.createAnimation({
-                    top: buttons[k].top + sectionHeights[index]
+                    top: buttons[k].top + sectionHeights[index],
+                    duration: 500
                 }));
             }
         }
         //expand section
         Ti.API.info("--unfolding section " + sectionHeights[index] + " " + JSON.stringify(sections[index]));
         sections[index].animate(Ti.UI.createAnimation({
-            height: sectionHeights[index]
+            //height: sectionHeights[index]
+            opacity: 1,
+            duration: 500
         }));
     }
     //first, hide all sections and reposition buttons. If necessary use callback on last animation to slide down section.
@@ -283,14 +297,17 @@ var buttonClicked = function(index){
     for(var i = 0; i < 3; i++){
         Ti.API.info("-resetting element " + i);
         sections[i].animate(Ti.UI.createAnimation({
-            height: 0
+            //height: 0
+            opacity: 0,
+            duration: 500
         }));
         buttons[i].animate(Ti.UI.createAnimation({
-            top: upValues[i]
+            top: upValues[i],
+            duration: 500
         }, (slideDown && i == 2 ? slideDownCallback : null)));
     }
     expanded = [false, false, false];
-    expanded[index] = true;
+    expanded[index] = slideDown;
 }
 
 win.open();
