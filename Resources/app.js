@@ -45,7 +45,7 @@ wrapper.add(Ti.UI.createLabel({
 }));
 
 //buttons
-var buttonWrapper = Ti.UI.createView({
+var buttonWrapper = Ti.UI.createScrollView({
     top: 130,
     left: 30,
     right: 30,
@@ -83,7 +83,7 @@ var orderSection = Ti.UI.createView({
     right: 0,
     top: 75,
     layout: "vertical",
-    opacity: 0
+    opacity: Ti.Platform.osname == "android" ? 1 : 0
 });
 buttonWrapper.add(orderSection);
 
@@ -139,7 +139,7 @@ orderSection.add(recentLabel);
 var invoiceButton = Ti.UI.createView({
     left: 0,
     right: 0,
-    top: 100,
+    top: Ti.Platform.osname == "android" ? 230 : 100,
     height: 50,
     backgroundColor: "#f07f08",
     borderColor: "#b05b05",
@@ -163,8 +163,8 @@ var invoiceSection = Ti.UI.createView({
     height: 90,
     left: 0,
     right: 0,
-    top: 175,
-    opacity: 0,
+    top: Ti.Platform.osname == "android" ? 300 : 175,
+    opacity: Ti.Platform.osname == "android" ? 1 : 0,
     layout: "vertical"
 });
 buttonWrapper.add(invoiceSection);
@@ -208,7 +208,7 @@ var askButton = Ti.UI.createView({
     left: 0,
     right: 0,
     height: 50,
-    top: 200,
+    top: Ti.Platform.osname == "android" ? 410 : 200,
     backgroundColor: "#f07f08",
     borderColor: "#b05b05",
     borderWidth: 3,
@@ -234,8 +234,8 @@ var askSection = Ti.UI.createView({
     left: 0,
     right: 0,
     layout: "vertical",
-    opacity: 0,
-    top: 275
+    opacity: Ti.Platform.osname == "android" ? 1 : 0,
+    top: Ti.Platform.osname == "android" ? 480 : 275
 });
 buttonWrapper.add(askSection);
 
