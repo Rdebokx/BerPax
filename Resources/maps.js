@@ -20,13 +20,17 @@
         win.add(wrapper);
         
         //Title bar
-        wrapper.add(Ti.UI.createImageView({
+        var logo = Ti.UI.createImageView({
             image: "/images/taxi_logo.png",
             top: 0,
             left: 0,
             height: 75,
             width:75
-        }));
+        });
+        logo.addEventListener("click", function(){
+            win.close();
+        });
+        wrapper.add(logo);
         wrapper.add(Ti.UI.createLabel({
             text: "BerPax Taxi App",
             top: 15,

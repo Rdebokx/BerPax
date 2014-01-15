@@ -143,15 +143,21 @@
         //arrival field (loading...)
         var arrival = createFormRow(top += 50, "Arrival time", "16 : 34");
         arrival.field.color = "#7f7f7f";
-        //TODO: activity indicator
-        /*
-        var indicator = Ti.UI.createActivityIndicator({
-            height: 10,
-            width: 10,
-            right: 10
+        var style = Ti.Platform.name === 'iPhone OS' ? Ti.UI.iPhone.ActivityIndicatorStyle.DARK : Ti.UI.ActivityIndicatorStyle.DARK; 
+        var activityIndicator = Ti.UI.createActivityIndicator({
+          style:style,
+          top:10,
+          right:10,
+          height:Ti.UI.SIZE,
+          width:Ti.UI.SIZE
         });
-        */
-        //indicator.show();
+        arrival.field.add(activityIndicator);
+        
+        win.addEventListener('open', function (e) {
+          activityIndicator.show();
+        });
+        
+        
         form.add(arrival);
         
         top += 75;
@@ -163,8 +169,12 @@
         });
         form.add(buttonWrapper);
         buttonWrapper.add(createSquareButton("Reset"));
-        buttonWrapper.add(createSquareButton("Cancel"));
-        buttonWrapper.add(createSquareButton("Cancel"));
+        var cancelButton = createSquareButton("Cancel");
+        cancelButton.addEventListener("click", function(){
+            win.close();
+        });
+        buttonWrapper.add(cancelButton);
+        buttonWrapper.add(createSquareButton("OK"));
         
         win.open();
 
