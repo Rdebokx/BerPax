@@ -98,7 +98,7 @@ var getTaxiLabel = Ti.UI.createLabel({
 });
 orderSection.add(getTaxiLabel);
 getTaxiLabel.addEventListener("click", function(e){
-    //TODO
+    require("/order").openOrderWin();
 });
 
 var planLabel = Ti.UI.createLabel({
@@ -273,11 +273,9 @@ var buttons = [orderButton, invoiceButton, askButton];
 var buttonClicked = function(index){
     var slideDown = !expanded[index];
     var slideDownCallback = function(){
-        Ti.API.info("--slideDown callback called");
         //make room by repositioning buttons
         for(var k = 0; k < 3; k++){
             if(k > index){
-                Ti.API.info("--moving button down");
                 buttons[k].animate(Ti.UI.createAnimation({
                     top: buttons[k].top + sectionHeights[index],
                     duration: 500
@@ -285,7 +283,6 @@ var buttonClicked = function(index){
             }
         }
         //expand section
-        Ti.API.info("--unfolding section " + sectionHeights[index] + " " + JSON.stringify(sections[index]));
         sections[index].animate(Ti.UI.createAnimation({
             //height: sectionHeights[index]
             opacity: 1,
@@ -293,9 +290,7 @@ var buttonClicked = function(index){
         }));
     }
     //first, hide all sections and reposition buttons. If necessary use callback on last animation to slide down section.
-    Ti.API.info("--resetting elements");
     for(var i = 0; i < 3; i++){
-        Ti.API.info("-resetting element " + i);
         sections[i].animate(Ti.UI.createAnimation({
             //height: 0
             opacity: 0,
