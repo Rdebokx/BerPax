@@ -249,7 +249,7 @@ var myTaxiLabel = Ti.UI.createLabel({
     }
 });
 myTaxiLabel.addEventListener("click", function(e) {
-    //TODO
+    require("maps").showMaps();
 });
 askSection.add(myTaxiLabel);
 
