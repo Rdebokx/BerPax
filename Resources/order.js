@@ -79,7 +79,8 @@
         }));
         topBar.add(Ti.UI.createLabel({
             text: "3. VERIFY",
-            left: 230,
+            right: 0,
+            width: 90,
             color: "#000",
             font: {
                 fontSize: 16
@@ -96,13 +97,13 @@
         
         form.add(Ti.UI.createSwitch({
             left: 10,
-            width: 40,
+            width: 60,
             top: 0,
             value: true
         }));
         form.add(Ti.UI.createLabel({
             text: "Recurring",
-            top: 5, 
+            top: Ti.Platform.osname == "android" ? 15 : 5, 
             left: 75,
             color: "#000",
             font: {
@@ -204,7 +205,9 @@
             right: 0,
             top: 0,
             bottom: 0,
-            borderColor: "7f7f7f",
+            color: "#000",
+            borderColor: "#7f7f7f",
+            borderWidth: 2,
             paddingLeft: 10,
             backgroundFocusedColor: "#facc99"
         });
