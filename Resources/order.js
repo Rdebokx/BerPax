@@ -148,8 +148,8 @@
         var style = Ti.Platform.name === 'iPhone OS' ? Ti.UI.iPhone.ActivityIndicatorStyle.DARK : Ti.UI.ActivityIndicatorStyle.BIG_DARK;
         var activityIndicator = Ti.UI.createActivityIndicator({
           style:style,
-          top:0,
-          right: 0,
+          top:Ti.Platform.osname == "android" ? 0 : 10,
+          right: Ti.Platform.osname == "android" ? 0 : 10,
           height:Ti.UI.SIZE,
           width:Ti.UI.SIZE
         });
