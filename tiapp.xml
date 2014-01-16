@@ -57,7 +57,7 @@
             <permission android:name="com.groep1.berpax.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
             <application>
                 <!-- Replace "PASTE YOUR GOOGLE MAPS API KEY HERE" with the Google API key you obtained -->
-                <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBo5ZAiRT05mEsTRSfEHJoIA6ysyUFIHN4"/>
+                <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBTNRl0YjgpqWAe7gZbXffsQ8HVr-W7F0Q"/>
             </application>
         </manifest>
         

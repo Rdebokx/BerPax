@@ -71,7 +71,7 @@
         topBar.add(twoWrapper);
         twoWrapper.add(Ti.UI.createLabel({
             text: "2. INPUT / EDIT",
-            left: 10,
+            //left: 10,
             color: "#fff",
             font: {
                 fontSize: 16
@@ -144,6 +144,23 @@
         //arrival field (loading...)
         var arrival = createFormRow(top += 50, "Arrival time", "16 : 34");
         arrival.field.color = "#7f7f7f";
+        
+        var style = Ti.Platform.name === 'iPhone OS' ? Ti.UI.iPhone.ActivityIndicatorStyle.DARK : Ti.UI.ActivityIndicatorStyle.BIG_DARK;
+        var activityIndicator = Ti.UI.createActivityIndicator({
+          style:style,
+          top:0,
+          right: 0,
+          height:Ti.UI.SIZE,
+          width:Ti.UI.SIZE
+        });
+        
+        arrival.add(activityIndicator);
+        //arrival.field.add(activityIndicator);
+        
+        win.addEventListener('open', function (e) {
+          activityIndicator.show();
+        });
+        /*
         var style = Ti.Platform.name === 'iPhone OS' ? Ti.UI.iPhone.ActivityIndicatorStyle.DARK : Ti.UI.ActivityIndicatorStyle.DARK; 
         var activityIndicator = Ti.UI.createActivityIndicator({
           style:style,
@@ -152,11 +169,14 @@
           height:Ti.UI.SIZE,
           width:Ti.UI.SIZE
         });
-        arrival.field.add(activityIndicator);
+        //arrival.field.add(activityIndicator);
+        win.add(activityIndicator);
         
         win.addEventListener('open', function (e) {
+            Ti.API.info("--opening window");
           activityIndicator.show();
         });
+        */
         
         
         form.add(arrival);
